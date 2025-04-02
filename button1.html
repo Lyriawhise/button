@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Download Button</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #2d3748;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #2d3748;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f0f6ff;
+      margin-bottom: 10px;
+    }
+    
+    .download-btn-wrapper {
+      position: relative;
+      width: 220px;
+      height: 60px;
+      filter: drop-shadow(0 10px 15px rgba(66, 153, 225, 0.25));
+    }
+    
+    .download-btn {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 25px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 
+        0 5px 15px rgba(66, 153, 225, 0.4),
+        0 10px 30px rgba(49, 130, 206, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+      opacity: 0.6;
+      z-index: 1;
+    }
+    
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 20px rgba(66, 153, 225, 0.5),
+        0 15px 40px rgba(49, 130, 206, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    }
+    
+    .download-btn:active {
+      transform: translateY(1px);
+      box-shadow: 
+        0 3px 10px rgba(66, 153, 225, 0.4),
+        0 6px 20px rgba(49, 130, 206, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-text {
+      position: relative;
+      z-index: 2;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-icon-wrapper {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      z-index: 2;
+    }
+    
+    .progress-circle-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .progress-circle {
+      transform: rotate(-90deg);
+      transform-origin: center;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .progress-bg {
+      stroke: rgba(255, 255, 255, 0.3);
+      fill: none;
+      stroke-width: 3;
+    }
+    
+    .progress-indicator {
+      stroke: white;
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+    }
+    
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      fill: white;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .download-icon {
+      opacity: 1;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+    
+    .check-icon {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* Ripple effect */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(0);
+      animation: ripple 0.8s linear;
+      z-index: 0;
+    }
+    
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 3;
+    }
+    
+    .sparkle-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: white;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+      animation: sparkle-fade 0.8s ease-out forwards;
+    }
+    
+    @keyframes sparkle-fade {
+      0% {
+        opacity: 1;
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+    
+    /* Success state */
+    .download-btn.success {
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      box-shadow: 
+        0 5px 15px rgba(72, 187, 120, 0.4),
+        0 10px 30px rgba(56, 161, 105, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    .download-btn.success:hover {
+      box-shadow: 
+        0 8px 20px rgba(72, 187, 120, 0.5),
+        0 15px 40px rgba(56, 161, 105, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    }
+    
+    .download-btn.success .download-icon {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    
+    .download-btn.success .check-icon {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    /* Loading state */
+    .download-btn.loading {
+      pointer-events: none;
+    }
+    
+    .download-btn.loading .btn-text {
+      opacity: 0.7;
+    }
+    
+    /* Confetti effect */
+    .confetti {
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+    }
+    
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 16px;
+      background-color: #fff;
+      opacity: 0.8;
+      animation: confetti-fall 3s ease-out forwards;
+    }
+    
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(200px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Pulse effect */
+    .pulse-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      transform: translate(-50%, -50%) scale(0);
+      animation: pulse 1s ease-out;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Premium Download Button</h1>
+    <div class="download-btn-wrapper">
+      <button class="download-btn" id="downloadBtn">
+        <div class="btn-icon-wrapper">
+          <div class="progress-circle-container">
+            <svg class="progress-circle" viewBox="0 0 36 36">
+              <circle class="progress-bg" cx="18" cy="18" r="16"></circle>
+              <circle class="progress-indicator" cx="18" cy="18" r="16" id="progressCircle"></circle>
+            </svg>
+          </div>
+          
+          <svg class="icon download-icon" viewBox="0 0 24 24">
+            <path d="M12 16L16 12H13V4H11V12H8L12 16Z"></path>
+            <path d="M20 18H4V11H2V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V11H20V18Z"></path>
+          </svg>
+          
+          <svg class="icon check-icon" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"></path>
+          </svg>
+        </div>
+        <span class="btn-text">Download</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const downloadBtn = document.getElementById('downloadBtn');
+      const progressCircle = document.getElementById('progressCircle');
+      const btnText = downloadBtn.querySelector('.btn-text');
+      
+      // Calculate the circle circumference
+      const radius = 16;
+      const circumference = 2 * Math.PI * radius;
+      
+      // Set initial state
+      progressCircle.style.strokeDasharray = circumference;
+      progressCircle.style.strokeDashoffset = circumference;
+      
+      // Create ripple effect function
+      function createRipple(event) {
+        const button = event.currentTarget;
+        const ripple = document.createElement('span');
+        const rect = button.getBoundingClientRect();
+        
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        button.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 800);
+      }
+      
+      // Create sparkle effect
+      function createSparkles(event) {
+        const button = event.currentTarget;
+        const sparkle = document.createElement('div');
+        const rect = button.getBoundingClientRect();
+        
+        sparkle.className = 'sparkle';
+        
+        // Create multiple sparkle particles
+        for (let i = 0; i < 12; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'sparkle-particle';
+          
+          // Random position within 50px radius of click point
+          const angle = Math.random() * Math.PI * 2;
+          const distance = Math.random() * 50;
+          const x = event.clientX - rect.left + Math.cos(angle) * distance;
+          const y = event.clientY - rect.top + Math.sin(angle) * distance;
+          
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          
+          // Random delay
+          particle.style.animationDelay = `${Math.random() * 300}ms`;
+          
+          sparkle.appendChild(particle);
+        }
+        
+        button.appendChild(sparkle);
+        
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1100);
+      }
+      
+      // Create pulse effect
+      function createPulse(button) {
+        const pulse = document.createElement('div');
+        pulse.className = 'pulse-ring';
+        button.appendChild(pulse);
+        
+        setTimeout(() => {
+          pulse.remove();
+        }, 1000);
+      }
+      
+      // Create confetti effect
+      function createConfetti(button) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        const colors = ['#3182ce', '#4299e1', '#38b2ac', '#48bb78', '#ecc94b', '#ed8936'];
+        
+        // Create multiple confetti pieces
+        for (let i = 0; i < 40; i++) {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          
+          // Random position above the button
+          const x = Math.random() * button.offsetWidth;
+          const y = -20 - Math.random() * 10;
+          
+          // Random horizontal movement
+          const dirX = (Math.random() - 0.5) * 15;
+          
+          piece.style.left = `${x}px`;
+          piece.style.top = `${y}px`;
+          piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+          
+          // Random size
+          const size = Math.random() * 0.5 + 0.5;
+          piece.style.width = `${8 * size}px`;
+          piece.style.height = `${16 * size}px`;
+          
+          // Random animation
+          piece.style.animationDuration = `${Math.random() * 2 + 1}s`;
+          piece.style.animationDelay = `${Math.random() * 0.5}s`;
+          
+          // Random horizontal movement
+          piece.style.setProperty('--dirX', dirX + 'px');
+          
+          confetti.appendChild(piece);
+        }
+        
+        button.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 3000);
+      }
+      
+      // Button click event
+      downloadBtn.addEventListener('click', function(event) {
+        // Prevent multiple clicks
+        if (this.classList.contains('loading') || this.classList.contains('success')) {
+          return;
+        }
+        
+        // Add ripple effect
+        createRipple(event);
+        
+        // Add sparkle effect
+        createSparkles(event);
+        
+        // Add pulse effect
+        createPulse(this);
+        
+        // Start download animation
+        this.classList.add('loading');
+        btnText.textContent = 'Downloading...';
+        
+        // Animate progress circle
+        progressCircle.style.strokeDashoffset = circumference;
+        
+        // Start progress animation
+        let progress = 0;
+        const duration = 2000; // 2 seconds
+        const interval = 20; // Update every 20ms
+        const steps = duration / interval;
+        const increment = 1 / steps;
+        
+        const progressInterval = setInterval(() => {
+          progress += increment;
+          const offset = circumference - (progress * circumference);
+          progressCircle.style.strokeDashoffset = offset;
+          
+          if (progress >= 1) {
+            clearInterval(progressInterval);
+            completeDownload();
+          }
+        }, interval);
+        
+        // Complete download animation
+        function completeDownload() {
+          downloadBtn.classList.remove('loading');
+          downloadBtn.classList.add('success');
+          btnText.textContent = 'Downloaded';
+          
+          // Add confetti effect
+          createConfetti(downloadBtn);
+          
+          // Reset button after delay
+          setTimeout(() => {
+            progressCircle.style.strokeDashoffset = circumference;
+            downloadBtn.classList.remove('success');
+            btnText.textContent = 'Download';
+          }, 3000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
