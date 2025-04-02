@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Download Button</title>
+  <link rel="stylesheet" href="button1.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Premium Download Button</h1>
+    <div class="download-btn-wrapper">
+      <button class="download-btn" id="downloadBtn">
+        <div class="btn-icon-wrapper">
+          <div class="progress-circle-container">
+            <svg class="progress-circle" viewBox="0 0 36 36">
+              <circle class="progress-bg" cx="18" cy="18" r="16"></circle>
+              <circle class="progress-indicator" cx="18" cy="18" r="16" id="progressCircle"></circle>
+            </svg>
+          </div>
+          
+          <svg class="icon download-icon" viewBox="0 0 24 24">
+            <path d="M12 16L16 12H13V4H11V12H8L12 16Z"></path>
+            <path d="M20 18H4V11H2V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V11H20V18Z"></path>
+          </svg>
+          
+          <svg class="icon check-icon" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"></path>
+          </svg>
+        </div>
+        <span class="btn-text">Download</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="button1.js"></script>
+</body>
+</html>

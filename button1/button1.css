@@ -1,0 +1,293 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #2d3748;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #2d3748;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #f0f6ff;
+    margin-bottom: 10px;
+  }
+  
+  .download-btn-wrapper {
+    position: relative;
+    width: 220px;
+    height: 60px;
+    filter: drop-shadow(0 10px 15px rgba(66, 153, 225, 0.25));
+  }
+  
+  .download-btn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 25px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+      0 5px 15px rgba(66, 153, 225, 0.4),
+      0 10px 30px rgba(49, 130, 206, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  
+  .download-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.6;
+    z-index: 1;
+  }
+  
+  .download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 20px rgba(66, 153, 225, 0.5),
+      0 15px 40px rgba(49, 130, 206, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  }
+  
+  .download-btn:active {
+    transform: translateY(1px);
+    box-shadow: 
+      0 3px 10px rgba(66, 153, 225, 0.4),
+      0 6px 20px rgba(49, 130, 206, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  
+  .btn-text {
+    position: relative;
+    z-index: 2;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-icon-wrapper {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    z-index: 2;
+  }
+  
+  .progress-circle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .progress-circle {
+    transform: rotate(-90deg);
+    transform-origin: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .progress-bg {
+    stroke: rgba(255, 255, 255, 0.3);
+    fill: none;
+    stroke-width: 3;
+  }
+  
+  .progress-indicator {
+    stroke: white;
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  }
+  
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    fill: white;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .download-icon {
+    opacity: 1;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  }
+  
+  .check-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  }
+  
+  /* Ripple effect */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple 0.8s linear;
+    z-index: 0;
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+  }
+  
+  .sparkle-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    animation: sparkle-fade 0.8s ease-out forwards;
+  }
+  
+  @keyframes sparkle-fade {
+    0% {
+      opacity: 1;
+      transform: scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+  
+  /* Success state */
+  .download-btn.success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    box-shadow: 
+      0 5px 15px rgba(72, 187, 120, 0.4),
+      0 10px 30px rgba(56, 161, 105, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  
+  .download-btn.success:hover {
+    box-shadow: 
+      0 8px 20px rgba(72, 187, 120, 0.5),
+      0 15px 40px rgba(56, 161, 105, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  }
+  
+  .download-btn.success .download-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  
+  .download-btn.success .check-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  /* Loading state */
+  .download-btn.loading {
+    pointer-events: none;
+  }
+  
+  .download-btn.loading .btn-text {
+    opacity: 0.7;
+  }
+  
+  /* Confetti effect */
+  .confetti {
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+  }
+  
+  .confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    background-color: #fff;
+    opacity: 0.8;
+    animation: confetti-fall 3s ease-out forwards;
+  }
+  
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(200px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Pulse effect */
+  .pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) scale(0);
+    animation: pulse 1s ease-out;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 0;
+    }
+  }
