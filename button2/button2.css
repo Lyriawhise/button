@@ -1,0 +1,93 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #2d3748;
+    font-family: Arial, sans-serif;
+}
+
+.play-button-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #4776E6, #8E54E9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background 0.5s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.play-button-container:hover .play-circle {
+    transform: scale(1.05);
+}
+
+.play-icon {
+    width: 50px;
+    height: 50px;
+    transition: opacity 0.4s ease;
+}
+
+.wave-container {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.wave-bar {
+    width: 6px;
+    background-color: white;
+    border-radius: 3px;
+    height: 15px;
+    animation: wave 1s infinite;
+}
+
+.wave-bar:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.wave-bar:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.wave-bar:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.wave-bar:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes wave {
+    0%, 100% { height: 15px; }
+    50% { height: 40px; }
+}
+
+.playing .play-circle {
+    background: linear-gradient(145deg, #8E54E9, #4776E6);
+}
+
+.playing .play-icon {
+    opacity: 0;
+}
+
+.playing .wave-container {
+    opacity: 1;
+}
