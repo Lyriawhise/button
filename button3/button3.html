@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Animated Submit Button</title>
+  <link rel="stylesheet" href="button3.css">
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle">Switch Theme</button>
+  
+  <div class="container">
+    <button class="submit-button" id="submitBtn">
+      <div class="button-particles" id="particles"></div>
+      <div class="icon-container">
+        <!-- Pen Icon -->
+        <svg class="icon pen-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+        </svg>
+        
+        <!-- Loading Icon -->
+        <svg class="icon loading-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+        </svg>
+        
+        <!-- Checkmark Icon -->
+        <svg class="icon check-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+        </svg>
+      </div>
+      <div class="text-container">
+        <span class="button-text" id="submitText">Submit</span>
+        <span class="button-text hidden" id="processingText">Processing...</span>
+        <span class="button-text hidden" id="doneText">Success!</span>
+        <span class="button-text hidden" id="errorText">Failed!</span>
+      </div>
+      <div class="progress-bar" id="progressBar"></div>
+    </button>
+  </div>
+
+  <script src="button3.js"></script>
+</body>
+</html>
