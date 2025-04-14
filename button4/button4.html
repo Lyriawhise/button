@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tombol Add to Cart Kreatif</title>
+    <link rel="stylesheet" href="button4.css">
+</head>
+<body>
+    <div class="container">
+        <button class="add-to-cart-button" id="addToCartBtn">
+            <div class="button-content">
+                <div class="cart-icon">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                    <div class="cart-count">1</div>
+                </div>
+                <span class="button-text">Add to Cart</span>
+            </div>
+            <div class="processing-content">
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="success-content">
+                <svg class="checkmark" viewBox="0 0 24 24" fill="white">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <span class="button-text">Added to Cart!</span>
+            </div>
+        </button>
+
+        <svg class="shirt-icon" viewBox="0 0 24 24" fill="white">
+            <path d="M16.17,11.12C15.95,9.44,14.9,8,12,8C9.1,8,8.05,9.44,7.83,11.12C6.14,11.54,5,13.07,5,14.88V22h14v-7.12 C19,13.07,17.86,11.54,16.17,11.12z M12,6c1.93,0,3.5-1.57,3.5-3.5C15.5,1.57,13.93,0,12,0C10.07,0,8.5,1.57,8.5,2.5 C8.5,4.43,10.07,6,12,6z"/>
+        </svg>
+
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <script src="button4.js"></script>
+</body>
+</html>

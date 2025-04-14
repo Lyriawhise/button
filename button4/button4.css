@@ -1,0 +1,286 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1b1b1c;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-to-cart-button {
+    position: relative;
+    width: 180px;
+    height: 60px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(110, 142, 251, 0.4);
+    transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    transform: translate3d(0, 0, 0);
+    z-index: 1;
+}
+
+.add-to-cart-button:hover {
+    box-shadow: 0 0 20px rgba(110, 142, 251, 0.6);
+    transform: translate3d(0, -3px, 0);
+}
+
+.button-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.cart-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+.shirt-icon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    fill: white;
+    left: 100px;
+    top: -80px;
+    opacity: 0;
+    transform-origin: center;
+    z-index: 3;
+}
+
+.button-text {
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+/* Ripple Effect */
+.add-to-cart-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: all 0.6s ease;
+}
+
+.add-to-cart-button.clicked::after {
+    animation: ripple 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    80% {
+        transform: scale(25);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(30);
+        opacity: 0;
+    }
+}
+
+/* Particle Effects */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+/* Advanced shirt animation */
+@keyframes floatToCart {
+    0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    }
+    40% {
+        transform: translate3d(-30px, -40px, 0) rotate(-20deg) scale(1.2);
+    }
+    70% {
+        transform: translate3d(-15px, -20px, 0) rotate(10deg) scale(0.9);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(-60px, 0, 0) rotate(0deg) scale(0.5);
+    }
+}
+
+/* Cart shake animation enhanced */
+@keyframes cartBounce {
+    0% { transform: scale(1) rotate(0deg); }
+    20% { transform: scale(1.1) rotate(-8deg); }
+    40% { transform: scale(1.08) rotate(6deg); }
+    60% { transform: scale(1.05) rotate(-4deg); }
+    80% { transform: scale(1.02) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Added text animation */
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Count indicator */
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff5252;
+    color: white;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.cart-count.show {
+    animation: popIn 0.5s cubic-bezier(0.38, 2, 0.55, 0.27) forwards;
+    animation-delay: 0.8s;
+}
+
+/* Success state */
+.add-to-cart-button.added {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+
+/* State transitions with hidden overflow */
+.add-to-cart-button.processing .button-content {
+    transform: translateY(-100%);
+}
+
+.processing-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.add-to-cart-button.processing .processing-content {
+    transform: translateY(-100%);
+}
+
+.success-content {
+    position: absolute;
+    top: 200%;  /* Changed from 100% to 200% */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    opacity: 0;
+}
+
+.add-to-cart-button.added .button-content {
+    transform: translateY(-200%);  /* Make room for success content */
+}
+
+.add-to-cart-button.added .success-content {
+    transform: translateY(-200%);  /* Move up two positions */
+    opacity: 1;
+}
+
+.add-to-cart-button.added .processing-content {
+    transform: translateY(-200%);  /* Keep consistent with other elements */
+    opacity: 0;
+}
+
+.loading-dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+    margin: 0 3px;
+    opacity: 0;
+}
+
+.add-to-cart-button.processing .loading-dots span:nth-child(1) {
+    animation: loadingDot 1.2s infinite ease-in-out;
+}
+
+.add-to-cart-button.processing .loading-dots span:nth-child(2) {
+    animation: loadingDot 1.2s infinite ease-in-out 0.2s;
+}
+
+.add-to-cart-button.processing .loading-dots span:nth-child(3) {
+    animation: loadingDot 1.2s infinite ease-in-out 0.4s;
+}
+
+@keyframes loadingDot {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    transform: scale(0);
+}
+
+.add-to-cart-button.added .checkmark {
+    animation: popIn 0.5s cubic-bezier(0.38, 2, 0.55, 0.27) forwards;
+}
